@@ -52,8 +52,16 @@ module RuboCop
         registry.without_department(:Rails)
       end
 
-      def self.inherited(subclass)
-        registry.enlist(subclass)
+      # def self.inherited(subclass)
+      #   registry.enlist(subclass)
+      # end
+
+      def self.enlist_department(department)
+        department_module = RuboCop::Cop.const_get(department)
+        department_module.constants
+          .select { |c| department_module.const_get(c).is_a? Cop }.each do |c|
+          registry.enlist(c)
+        end
       end
 
       def self.badge

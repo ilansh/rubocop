@@ -508,3 +508,7 @@ require 'rubocop/runner'
 require 'rubocop/cli'
 require 'rubocop/options'
 require 'rubocop/remote_config'
+
+%i[Bundler Layout Lint Metrics Performance Rails Security Style].each do |d|
+  RuboCop::Cop::Cop.enlist_department(d)
+end
